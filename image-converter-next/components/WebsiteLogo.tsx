@@ -1,6 +1,7 @@
 "use client";
 import { getDomain } from "@/lib/utils";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 interface IProps {
   url: string;
@@ -76,7 +77,7 @@ const WebsiteLogo = ({
         </div>
       )}
 
-      <img
+      <Image
         src={imgSrc}
         alt={`${domain} logo`}
         width={size}

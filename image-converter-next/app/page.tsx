@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { Clipboard, Image as ImageIcon, Link2 } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 export default function Home() {
   const [imageUrl, setImageUrl] = useState("");
@@ -295,7 +296,7 @@ function PreviewCard({ url }: { url: string }) {
   return (
     <div className="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-600">
       <div className="aspect-w-16 aspect-h-9">
-        <img
+        <Image
           src={url}
           alt="Converted image preview"
           className="object-cover w-full h-full"
