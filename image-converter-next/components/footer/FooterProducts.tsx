@@ -7,14 +7,12 @@ const footerProducts = [
     url: "https://landingpage.weijunext.com/",
     name: "Landing Page Boilerplate",
   },
-  { url: "https://nextjscn.org/", name: "Next.js 中文文档" },
   { url: "https://nextjs.weijunext.com/", name: "Next.js Practice" },
   { url: "https://starter.weijunext.com/", name: "Next.js Starter" },
   {
     url: "https://github.com/weijunext/indie-hacker-tools",
     name: "Indie Hacker Tools",
   },
-  { url: "https://weijunext.com/", name: "J实验室" },
 ];
 
 const FooterProducts = () => {

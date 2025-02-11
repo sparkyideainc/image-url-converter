@@ -17,7 +17,7 @@ const Header = () => {
 
           <div className="flex items-center space-x-4">
             <Link
-              href="https://github.com/weijunext/image-url-converter"
+              href="https://github.com/sparkyideainc/image-url-converter"
               target="_blank"
               className="text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
             >
