@@ -10,9 +10,9 @@ const baseSiteConfig = {
   keywords: [],
   authors: [
     {
-      name: "weijunext",
-      url: "https://weijunext.com",
-      twitter: 'https://x.com/weijunext',
+      name: "Sparky Idea Inc.",
+      url: "https://sparkyidea.com",
+      twitter: '',
     }
   ],
   creator: '@weijunext',

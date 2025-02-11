@@ -5,22 +5,22 @@ import { MdEmail } from "react-icons/md";
 import { SiBuymeacoffee, SiJuejin } from "react-icons/si";
 
 const footerLinks = [
-  { name: "email", href: "mailto:weijunext@gmail.com", icon: MdEmail },
-  { name: "twitter", href: "https://twitter.com/weijunext", icon: BsTwitterX },
-  { name: "github", href: "https://github.com/weijunext/", icon: BsGithub },
+  { name: "email", href: "", icon: MdEmail },
+  { name: "twitter", href: "", icon: BsTwitterX },
+  { name: "github", href: "", icon: BsGithub },
   {
     name: "buyMeCoffee",
-    href: "https://www.buymeacoffee.com/weijunext",
+    href: "",
     icon: SiBuymeacoffee,
   },
   {
     name: "juejin",
-    href: "https://juejin.cn/user/26044008768029",
+    href: "",
     icon: SiJuejin,
   },
   {
     name: "weChat",
-    href: "https://weijunext.com/make-a-friend",
+    href: "",
     icon: BsWechat,
   },
 ];

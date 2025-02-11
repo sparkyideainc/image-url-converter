@@ -6,13 +6,13 @@ import { SiBuymeacoffee } from "react-icons/si";
 const headerLinks = [
   {
     name: "repo",
-    href: "https://github.com/weijunext/nextjs-15-starter",
+    href: "https://github.com/sparkyideainc/image-url-converter",
     icon: BsGithub,
   },
-  { name: "twitter", href: "https://twitter.com/weijunext", icon: BsTwitterX },
+  { name: "twitter", href: "", icon: BsTwitterX },
   {
     name: "buyMeCoffee",
-    href: "https://www.buymeacoffee.com/weijunext",
+    href: "",
     icon: SiBuymeacoffee,
   },
 ];
