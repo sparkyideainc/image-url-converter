@@ -3,6 +3,7 @@ import { HeadObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import axios from "axios";
 import crypto from "crypto";
 import heicConvert from "heic-convert";
+import sharp from "sharp";
 
 export async function generateFileName(imageData: ArrayBuffer | Buffer, extension: string) {
   // Convert ArrayBuffer to Buffer if needed
@@ -35,15 +36,19 @@ export async function checkFileExists(filename: string) {
 
 export async function uploadToR2(filename: string, data: Buffer | ArrayBuffer) {
   let bodyData = Buffer.isBuffer(data) ? data : Buffer.from(data);
-  const extension = getExtension(filename);
+  let extension = getExtension(filename);
 
   // Convert HEIC to JPG if needed
   if (extension === "heic") {
     bodyData = await convertHeicToJpg(bodyData);
     filename = filename.replace(/\.heic$/i, ".jpg");
+    extension = "jpg";  // Update the extension after conversion
   }
 
-  const contentType = getMimeType(extension === "heic" ? "jpg" : extension);
+  // Try to compress the image - compressImage will handle format checking
+  bodyData = await compressImage(bodyData, extension);
+
+  const contentType = getMimeType(extension);
 
   await R2.send(
     new PutObjectCommand({
@@ -106,5 +111,36 @@ export async function convertHeicToJpg(buffer: Buffer): Promise<Buffer> {
   } catch (error: any) {
     console.error("HEIC conversion error:", error);
     throw new Error(`Failed to convert HEIC image: ${error.message}`);
+  }
+}
+
+export async function compressImage(buffer: Buffer, extension: string): Promise<Buffer> {
+  try {
+    const sharpInstance = sharp(buffer);
+
+    switch (extension) {
+      case "jpg":
+      case "jpeg":
+        return await sharpInstance.jpeg({ quality: 80 }).toBuffer();
+      case "png":
+        return await sharpInstance.png({ quality: 80 }).toBuffer();
+      case "webp":
+        return await sharpInstance.webp({ quality: 75 }).toBuffer();
+      case "avif":
+        return await sharpInstance
+          .avif({ quality: 70 }) // AVIF typically uses lower quality values
+          .toBuffer();
+      case "tiff":
+        return await sharpInstance.tiff({ quality: 80, compression: "jpeg" }).toBuffer();
+      case "gif":
+        return await sharpInstance
+          .gif() // GIF doesn't support quality option
+          .toBuffer();
+      default:
+        return buffer;
+    }
+  } catch (error: any) {
+    console.error("Image compression error:", error);
+    throw new Error(`Failed to compress image: ${error.message}`);
   }
 }

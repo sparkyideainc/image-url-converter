@@ -4,6 +4,7 @@ import { Features } from "@/components/home/Features";
 import { siteConfig } from "@/config/site";
 import { motion } from "framer-motion";
 import { Clipboard, Image as ImageIcon, Link2 } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -84,17 +85,9 @@ export default function Home() {
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
         <div className="text-center space-y-8 mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              {siteConfig.name}
-            </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              {siteConfig.description}
-            </p>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">{siteConfig.name}</h1>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">{siteConfig.description}</p>
           </motion.div>
 
           {/* Steps */}
@@ -129,9 +122,7 @@ export default function Home() {
                   />
                 </div>
 
-                <div className="text-center text-gray-500 dark:text-gray-400">
-                  OR
-                </div>
+                <div className="text-center text-gray-500 dark:text-gray-400">OR</div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -232,32 +223,13 @@ export default function Home() {
 function LoadingSpinner() {
   return (
     <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-      <circle
-        className="opacity-25"
-        cx="12"
-        cy="12"
-        r="10"
-        stroke="currentColor"
-        strokeWidth="4"
-      />
-      <path
-        className="opacity-75"
-        fill="currentColor"
-        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-      />
+      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
     </svg>
   );
 }
 
-function Step({
-  icon,
-  text,
-  number,
-}: {
-  icon: React.ReactNode;
-  text: string;
-  number: number;
-}) {
+function Step({ icon, text, number }: { icon: React.ReactNode; text: string; number: number }) {
   return (
     <div className="flex flex-col items-center space-y-2">
       <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center relative">
@@ -274,18 +246,8 @@ function Step({
 function Arrow() {
   return (
     <div className="text-gray-300 dark:text-gray-600">
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M14 5l7 7m0 0l-7 7m7-7H3"
-        />
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
       </svg>
     </div>
   );
@@ -294,11 +256,15 @@ function Arrow() {
 function PreviewCard({ url }: { url: string }) {
   return (
     <div className="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-600">
-      <div className="aspect-w-16 aspect-h-9">
-        <img
+      <div className="relative">
+        <Image
           src={url}
           alt="Converted image preview"
-          className="object-cover w-full h-full"
+          className="object-contain w-full"
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ width: "100%", height: "auto" }}
           onError={(e) => {
             e.currentTarget.src = "/placeholder.svg";
           }}
